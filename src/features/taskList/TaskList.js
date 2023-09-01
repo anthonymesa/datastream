@@ -1,15 +1,20 @@
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteTask, selectAllTasks } from "./taskListSlice"
-import './Task.css'
+import './TaskList.css'
+import AddTaskBar from "../addTaskBar/AddTaskBar"
 
 const Task = ({ task }) => {
-
+    const [showAddTaskBar, setShowAddTaskBar] = useState(false);
     const dispatch = useDispatch()
 
-    const handleAddClick = () => {
+    useEffect(() => {
+        if (showAddTaskBar) document.getElementById(`add-task`).focus();
+    }, [showAddTaskBar]);
 
+    const handleAddClick = () => {
+        setShowAddTaskBar(true);
     }
 
     const handleDeleteClick = () => {
@@ -17,11 +22,14 @@ const Task = ({ task }) => {
     }
 
     return (
-        <div className="task">
-            <span className="task-title">{task.title}</span>
-            <input type="button" className="task-add-btn" value="+" onClick={handleAddClick} />
-            <input type="button" className="task-add-btn" value="x" onClick={handleDeleteClick} />
-        </div>
+        <>
+            <div className="task">
+                <span className="task-title">{task.title}</span>
+                <input type="button" className="task-action-btn" value="+" onClick={handleAddClick} />
+                <input type="button" className="task-action-btn" value="x" onClick={handleDeleteClick} />
+            </div>
+            {showAddTaskBar && <AddTaskBar close={() => setShowAddTaskBar(false)} />}
+        </>
     )
 }
 
@@ -29,7 +37,7 @@ const TaskList = ({ }) => {
     const tasks = useSelector(selectAllTasks);
 
     return (
-        <div>
+        <div className="task-list">
             {tasks.map((each) => (
                 <Task key={each.uuid} task={each} />
             ))}

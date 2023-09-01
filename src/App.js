@@ -1,12 +1,12 @@
 import './App.css';
-import AddTaskBar from './features/addTaskBar/AddTaskBar';
+import QuickAddTaskBar from './features/quickAddTaskBar/QuickAddTaskBar';
 import TaskList from './features/taskList/TaskList';
 
 function App() {
 
   return (
     <div className="App">
-      <AddTaskBar />
+      <QuickAddTaskBar />
       <TaskList />
     </div>
   );
