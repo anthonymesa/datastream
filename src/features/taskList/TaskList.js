@@ -5,8 +5,10 @@ import { deleteTask, selectAllTasks } from "./taskListSlice"
 import './TaskList.css'
 import AddTaskBar from "../addTaskBar/AddTaskBar"
 
-const Task = ({ task }) => {
+function Task({ task }) {
     const [showAddTaskBar, setShowAddTaskBar] = useState(false);
+    const [tasksExpanded, setTasksExpanded] = useState(false);
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -21,24 +23,35 @@ const Task = ({ task }) => {
         dispatch(deleteTask({ uuid: task.uuid }))
     }
 
+    const handleBgClick = (event) => {
+        if(!event.target.className.split(' ').some((s) => s == 'task-action-btn')) setTasksExpanded(!tasksExpanded)
+    }
+
+    const handleCompleteClick = () => {
+
+    }
+
     return (
         <>
-            <div className="task">
+            <div className="task" onClick={handleBgClick}>
+                {task.descendants.length > 0 && <span className="drop-arrow">{tasksExpanded ? '🮦' : '🮥' }</span>}
                 <span className="task-title">{task.title}</span>
-                <input type="button" className="task-action-btn" value="+" onClick={handleAddClick} />
-                <input type="button" className="task-action-btn" value="x" onClick={handleDeleteClick} />
+                <input type="button" className="task-action-btn" value="✚" onClick={handleAddClick} />
+                <input type="button" className="task-action-btn" value="✖" onClick={handleDeleteClick} />
+                <input type="button" className="task-action-btn" value="✔" onClick={handleCompleteClick} />
             </div>
-            {showAddTaskBar && <AddTaskBar close={() => setShowAddTaskBar(false)} />}
+            {showAddTaskBar && <AddTaskBar parentId={task.uuid} close={() => setShowAddTaskBar(false)} />}
+            {tasksExpanded && task.descendants.length != 0 && <TaskList parentId={task.uuid}/>}
         </>
     )
 }
 
-const TaskList = ({ }) => {
+function TaskList({ parentId = '' }) {
     const tasks = useSelector(selectAllTasks);
 
     return (
-        <div className="task-list">
-            {tasks.map((each) => (
+        <div className={`task-list ${parentId != '' && "nested"}`}>
+            {tasks.filter((i) => i.parentId == parentId).map((each) => (
                 <Task key={each.uuid} task={each} />
             ))}
         </div>

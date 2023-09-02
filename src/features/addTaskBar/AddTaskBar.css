@@ -9,6 +9,9 @@
     outline-width: 1px;
     outline-color: rgb(170, 170, 170);
     background-color: rgb(238, 238, 238);
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.1rem;
  }
 
 .input-title {
