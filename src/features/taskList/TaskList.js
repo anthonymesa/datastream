@@ -34,7 +34,7 @@ function Task({ task }) {
     return (
         <>
             <div className="task" onClick={handleBgClick}>
-                {task.descendants.length > 0 && <span className="drop-arrow">{tasksExpanded ? '🮦' : '🮥' }</span>}
+                {task.descendants.length > 0 && <span className={`drop-arrow ${tasksExpanded ? 'rotated' : ''}`}>🮥</span>}
                 <span className="task-title">{task.title}</span>
                 <input type="button" className="task-action-btn" value="✚" onClick={handleAddClick} />
                 <input type="button" className="task-action-btn" value="✖" onClick={handleDeleteClick} />

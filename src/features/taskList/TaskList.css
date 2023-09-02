@@ -36,4 +36,9 @@
 .drop-arrow {
     margin-left: 1rem;
     cursor: default;
+    transition: transform 0.25s;
+}
+
+.rotated {
+    transform: rotate(90deg);
 }
