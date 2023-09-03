@@ -8,6 +8,7 @@ import AddTaskBar from "../addTaskBar/AddTaskBar"
 function Task({ task }) {
     const [showAddTaskBar, setShowAddTaskBar] = useState(false);
     const [tasksExpanded, setTasksExpanded] = useState(false);
+    const [showTaskList, setShowTaskList] = useState(false);
 
     const dispatch = useDispatch()
 
@@ -24,24 +25,31 @@ function Task({ task }) {
     }
 
     const handleBgClick = (event) => {
-        if(!event.target.className.split(' ').some((s) => s == 'task-action-btn')) setTasksExpanded(!tasksExpanded)
+        if(!event.target.className.split(' ').some((s) => s == 'task-action-btn')) 
+          setTasksExpanded(!tasksExpanded)
     }
 
     const handleCompleteClick = () => {
 
     }
+    
+    useEffect(() => {
+      task.descendants.length != 0 ? setShowTaskList(true) : setShowTaskList(false)
+    }, [task.descendants])
 
     return (
         <>
             <div className="task" onClick={handleBgClick}>
-                {task.descendants.length > 0 && <span className={`drop-arrow ${tasksExpanded ? 'rotated' : ''}`}>🮥</span>}
+                {showTaskList && 
+                  <span className={`drop-arrow ${tasksExpanded ? 'rotated' : ''}`}>{'>'}</span>
+                }
                 <span className="task-title">{task.title}</span>
                 <input type="button" className="task-action-btn" value="✚" onClick={handleAddClick} />
                 <input type="button" className="task-action-btn" value="✖" onClick={handleDeleteClick} />
                 <input type="button" className="task-action-btn" value="✔" onClick={handleCompleteClick} />
             </div>
             {showAddTaskBar && <AddTaskBar parentId={task.uuid} close={() => setShowAddTaskBar(false)} />}
-            {tasksExpanded && task.descendants.length != 0 && <TaskList parentId={task.uuid}/>}
+            {tasksExpanded && showTaskList && <TaskList parentId={task.uuid}/>}
         </>
     )
 }
@@ -50,7 +58,7 @@ function TaskList({ parentId = '' }) {
     const tasks = useSelector(selectAllTasks);
 
     return (
-        <div className={`task-list ${parentId != '' && "nested"}`}>
+        <div className={`task-list ${parentId != '' ? "nested" : ''}`}>
             {tasks.filter((i) => i.parentId == parentId).map((each) => (
                 <Task key={each.uuid} task={each} />
             ))}

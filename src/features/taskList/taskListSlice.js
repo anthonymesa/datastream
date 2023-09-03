@@ -26,6 +26,8 @@ const taskListSlice = createSlice({
 
             // Add the new task's uuid to its parent task's descendants.
             state.tasks.find((t) => t.uuid == parentId)?.descendants.push(uuid)
+            
+            console.log(JSON.stringify(state.tasks, null, 2))
         },
         deleteTask: (state, action) => {
             const { uuid } = action.payload;
