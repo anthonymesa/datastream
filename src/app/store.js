@@ -1,11 +1,11 @@
 
-import { configureStore } from "@reduxjs/toolkit";
-import taskListReducer from "../features/taskList/taskListSlice";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import DatastreamSlice from "../features/Datastream/DatastreamSlice";
 
 const store = configureStore({
     reducer: {
-        taskList: taskListReducer,
-    }
-});
+        datastream: DatastreamSlice,
+    },
+})
 
 export default store;
