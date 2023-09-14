@@ -1,13 +1,10 @@
 import './App.css';
-import QuickAddTaskBar from './features/quickAddTaskBar/QuickAddTaskBar';
-import TaskList from './features/taskList/TaskList';
+import Datastream from './features/Datastream/Datastream';
 
 function App() {
-
   return (
-    <div className="App">
-      <QuickAddTaskBar />
-      <TaskList />
+    <div>
+      <Datastream />
     </div>
   );
 }
