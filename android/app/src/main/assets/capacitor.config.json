@@ -1,0 +1,8 @@
+{
+	"appId": "com.luridarc.enigmapm",
+	"appName": "enigmapm",
+	"bundledWebRuntime": false,
+	"npmClient": "npm",
+	"webDir": "build",
+	"cordova": {}
+}
