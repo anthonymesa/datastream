@@ -30,9 +30,10 @@ const ActionList = ({ parentUuid }) => {
                     <ActionDatumHeader uuid={action.uuid}>{action.uuid}</ActionDatumHeader>
                     <Accordion.Panel>
                         <ActionDatumContent uuid={action.uuid} />
-                        <Paper width={"calc(100% + 2rem) important!"} style={{ width: "calc(100% + 2rem) important!", marginLeft: "-1rem important!", boxShadow: "0 .5rem .5rem -.5rem gray, inset 0 .5rem .5rem -.5rem gray" }}>
-                            <ActionList style={{ overflow: "hidden" }} parentUuid={action.uuid} />
-                        </Paper>
+                        {actions.length > 0 &&
+                            <Paper width={"calc(100% + 2rem) important!"} style={{ width: "calc(100% + 2rem) important!", paddingTop: "30px", marginLeft: "-1rem important!", boxShadow: "0 .5rem .5rem -.5rem gray, inset 0 .5rem .5rem -.5rem gray" }}>
+                                <ActionList style={{ overflow: "hidden" }} parentUuid={action.uuid} />
+                            </Paper>}
                     </Accordion.Panel>
                 </Accordion.Item>
             ))}
