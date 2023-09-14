@@ -4,24 +4,21 @@ import ActionDatumContent from "../ActionDatumContent/ActionDatumContent"
 import { useDispatch, useSelector } from "react-redux"
 import { DependentActionsSelector, setActiveAction } from "./DatastreamSlice"
 import { FiChevronRight } from "react-icons/fi"
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react"
 
-// const useStyles = createStyles((theme) => ({
-
-// }))
-
-const ActionList = ({ parentUuid }) => {
+const ActionList = forwardRef(({ parentUuid }, ref) => {
     const actions = useSelector((state) => DependentActionsSelector(state, parentUuid));
     const dispatch = useDispatch();
-
-    if (actions.length == 0)
-        return (<></>);
+    const [accordionValue, setAccordionValue] = useState(null);
+    const childAccordionRef = useRef();
 
     const props = {
         multiple: false,
         variant: "separated",
         chevron: <FiChevronRight />,
+        value: accordionValue,
         onChange: (value) => {
-            dispatch(setActiveAction({ uuid: value }))
+            setAccordionValue(value)
         },
         style: {
 
@@ -44,11 +41,11 @@ const ActionList = ({ parentUuid }) => {
 
                 marginTop: "-100px",
                 paddingBottom: "-100px",
-                        
+
                 '&[data-active]': {
                     border: '0px solid transparent',
                     borderRadius: '0px'
-                  },
+                },
             },
             panel: {
             }
@@ -56,8 +53,23 @@ const ActionList = ({ parentUuid }) => {
         chevronPosition: "left",
     }
 
+    useEffect(() => {
+        if ((accordionValue == null) && childAccordionRef.current) {
+            childAccordionRef.current.resetAccordion()
+        }
+    }, [accordionValue])
+
+    useImperativeHandle(ref, () => ({
+        resetAccordion: () => {
+            setAccordionValue(null);
+        }
+    }), [accordionValue]);
+
+    if (actions.length == 0)
+        return (<></>);
+
     return (
-        <Paper style={{ 
+        <Paper style={{
             width: "calc(100% + 2rem)",
             marginLeft: "-1rem",
             paddingLeft: "1rem",
@@ -83,7 +95,7 @@ const ActionList = ({ parentUuid }) => {
                         <Accordion.Panel>
                             <ActionDatumContent uuid={action.uuid} />
                             {actions.length > 0 &&
-                                <ActionList parentUuid={action.uuid} />
+                                <ActionList ref={childAccordionRef} parentUuid={action.uuid} />
                             }
                         </Accordion.Panel>
                     </Accordion.Item>
@@ -101,17 +113,17 @@ const ActionList = ({ parentUuid }) => {
             }}></div>
         </Paper>
     );
-}
+})
 
 const Datastream = ({ }) => {
 
     return (
         <>
-        <Card style={{width: 'calc(100% - 2rem)', left: '50%', transform: 'translate(calc(-50% - 1rem) , 0)', margin: '1rem'}} shadow="sm" padding="lg" radius="md" withBorder>
-        <Title>Datastream</Title>
-        <Text>Your first datastream</Text>
-        </Card>
-        <ActionList parentUuid={''} />
+            <Card style={{ width: 'calc(100% - 2rem)', left: '50%', transform: 'translate(calc(-50% - 1rem) , 0)', margin: '1rem' }} shadow="sm" padding="lg" radius="md" withBorder>
+                <Title>Datastream</Title>
+                <Text>Your first datastream</Text>
+            </Card>
+            <ActionList parentUuid={''} />
         </>
     )
 }
