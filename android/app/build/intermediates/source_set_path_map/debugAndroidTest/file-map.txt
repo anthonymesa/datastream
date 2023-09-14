@@ -1,6 +1,0 @@
-com.luridarc.enigmapm.test.app-annotation-experimental-1.3.0-0 /home/amesa/.gradle/caches/transforms-3/c4eb8610416ba9fcff7203d70109fbae/transformed/annotation-experimental-1.3.0/res
-com.luridarc.enigmapm.test.app-core-1.5.0-1 /home/amesa/.gradle/caches/transforms-3/ec985eb774b6e2f8fedbaa0cecaad627/transformed/core-1.5.0/res
-com.luridarc.enigmapm.test.app-androidTest-2 /home/amesa/Documents/3_Engineering/31_Projects/enigma-project-manager/android/app/build/generated/res/resValues/androidTest/debug
-com.luridarc.enigmapm.test.app-mergeDebugAndroidTestResources-3 /home/amesa/Documents/3_Engineering/31_Projects/enigma-project-manager/android/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
-com.luridarc.enigmapm.test.app-mergeDebugAndroidTestResources-4 /home/amesa/Documents/3_Engineering/31_Projects/enigma-project-manager/android/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
-com.luridarc.enigmapm.test.app-merged_res-5 /home/amesa/Documents/3_Engineering/31_Projects/enigma-project-manager/android/app/build/intermediates/merged_res/debugAndroidTest

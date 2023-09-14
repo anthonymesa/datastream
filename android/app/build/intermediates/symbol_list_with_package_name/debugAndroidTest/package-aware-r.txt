@@ -1,3 +1,0 @@
-com.luridarc.enigmapm.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme
