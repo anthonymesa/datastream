@@ -33,8 +33,33 @@ const initialState = {
             description: 'A fancy description',
             tags: [],
             state: 'incomplete',
-        }
-    ]
+        },
+        {
+            parentUuid: '',
+            uuid: 'fjeajfeiljfa',
+            title: 'A Title 4',
+            description: 'A fancy description',
+            tags: [],
+            state: 'incomplete',
+        },
+        {
+            parentUuid: '',
+            uuid: 'fjeajfeiljfa',
+            title: 'A Title 4',
+            description: 'A fancy description',
+            tags: [],
+            state: 'incomplete',
+        },
+        {
+            parentUuid: '',
+            uuid: 'fjeajfeiljfa',
+            title: 'A Title 4',
+            description: 'A fancy description',
+            tags: [],
+            state: 'incomplete',
+        },
+    ],
+    activeAction: '',
 }
 
 const DatastreamState = createSlice({
@@ -58,6 +83,11 @@ const DatastreamState = createSlice({
             const foundAction = state.actions.find((e) => e.uuid == uuid)
             if (foundAction)
                 foundAction.state = "incomplete";
+        },
+        setActiveAction: (state, action) => {
+            const { uuid } = action.payload;
+
+            state.activeAction = uuid;
         }
     }
 })
@@ -130,10 +160,15 @@ export const ActionCompleteSelector = (state, uuid) => {
     return state.datastream.actions.find((e) => e.uuid == uuid).state == "complete" || ActionProgressSelector(state, uuid) == 100;
 }
 
+export const ActionActiveSelector = (state) => {
+    return state.datastream.activeAction;
+}
+
 export const {
     deleteAction,
     setComplete,
     setIncomplete,
+    setActiveAction
 } = DatastreamState.actions;
 
 export default DatastreamState.reducer;

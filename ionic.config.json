@@ -1,0 +1,7 @@
+{
+    "name": "enigmapm",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "react"
+}

@@ -53,6 +53,9 @@ const ActionCompleteGizmo = ({ uuid }) => {
     return (
         <RingProgress
             size={50}
+            style={{
+                marginRight: "1rem"
+            }}
             thickness={3}
             sections={[{ value: progress, color: 'green' }]}
             label={
