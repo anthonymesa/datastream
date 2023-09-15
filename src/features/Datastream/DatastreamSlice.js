@@ -102,10 +102,15 @@ const DatastreamState = createSlice({
             if (!parentUuid) return;
 
             const dependentActions = state.actions.filter(e => e.parentUuid == parentUuid);
-            if (dependentActions.every(e => e.state == ACTION_STATE.COMPLETE)) {
+            const actionableDependents = dependentActions.filter(e => e.state !== ACTION_STATE.PAUSED);
+
+            // If there are no actionable dependents, don't change the parent's state.
+            if (actionableDependents.length === 0) return;
+
+            if (actionableDependents.every(e => e.state == ACTION_STATE.COMPLETE)) {
                 const parentAction = state.actions.find(e => e.uuid == parentUuid);
                 parentAction.state = ACTION_STATE.COMPLETE;
-            } else if (dependentActions.some(e => e.state == ACTION_STATE.INCOMPLETE)) {
+            } else if (actionableDependents.some(e => e.state == ACTION_STATE.INCOMPLETE)) {
                 const parentAction = state.actions.find(e => e.uuid == parentUuid);
                 parentAction.state = ACTION_STATE.INCOMPLETE;
             }
