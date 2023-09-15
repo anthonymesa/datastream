@@ -1,8 +1,8 @@
 import { Center, RingProgress, ThemeIcon } from "@mantine/core"
 import { useCallback, useState, useRef, useEffect } from "react"
-import { FiCheck, FiTarget } from "react-icons/fi"
+import { FiCheck, FiPauseCircle, FiTarget } from "react-icons/fi"
 import { useDispatch, useSelector } from "react-redux"
-import { ActionProgressSelector, ActionCompleteSelector, setComplete, setIncomplete } from "../Datastream/DatastreamSlice"
+import { ActionProgressSelector, ActionCompleteSelector, cycleState, ActionStateSelector, ACTION_STATE, DependentActionsSelector, setState, toggleAndCheckParent } from "../Datastream/DatastreamSlice"
 
 const IncompleteIcon = () => {
 
@@ -36,21 +36,33 @@ const CompleteIcon = () => {
     )
 }
 
+const PausedIcon = () => {
+
+    const props = {
+        color: "blue",
+        variant: "light",
+        radius: "md",
+        size: "md",
+    }
+
+    return (
+        <ThemeIcon {...props}>
+            <FiPauseCircle />
+        </ThemeIcon>
+    )
+}
+
 const ActionCompleteGizmo = ({ uuid }) => {
 
     const progress = useSelector((state) => ActionProgressSelector(state, uuid));
-    const complete = useSelector((state) => ActionCompleteSelector(state, uuid));
+    const actionState = useSelector((state) => ActionStateSelector(state, uuid));
     const [animatedProgress, setAnimateProgress] = useState(progress);
     const dispatch = useDispatch();
     const prevProgressRef = useRef(progress);
 
-    const handleOnClick = useCallback(() => {
-        if (complete) {
-            dispatch(setIncomplete({ uuid: uuid }));
-        } else {
-            dispatch(setComplete({ uuid: uuid }));
-        }
-    }, [progress]);
+    const handleOnClick = () => {
+        dispatch(toggleAndCheckParent(uuid));
+    }
 
     function lerp(a, b, t) {
         return a + t * (b - a);
@@ -105,6 +117,23 @@ const ActionCompleteGizmo = ({ uuid }) => {
         }
     }, [progress]);
 
+    const icon = (state) => {
+        switch (state) {
+            case ACTION_STATE.PAUSED:
+                return <PausedIcon />
+            case ACTION_STATE.INCOMPLETE:
+                return <IncompleteIcon />
+            case ACTION_STATE.COMPLETE:
+                return <CompleteIcon />
+        }
+    }
+
+    // useEffect(() => {
+    //     if (dependentActions.length != 0 && progress == 100) {
+    //         dispatch(setState({ uuid: uuid, state: ACTION_STATE.COMPLETE }))
+    //     }
+    // }, [progress, dependentActions])
+
     return (
         <RingProgress
             size={50}
@@ -116,7 +145,7 @@ const ActionCompleteGizmo = ({ uuid }) => {
             label={
                 <div onClick={handleOnClick}>
                     <Center>
-                        {animatedProgress == 100 && complete ? <CompleteIcon /> : <IncompleteIcon />}
+                        {icon(actionState)}
                     </Center>
                 </div>
             }

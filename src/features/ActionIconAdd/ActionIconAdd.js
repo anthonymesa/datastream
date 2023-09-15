@@ -15,6 +15,7 @@ const ActionIconAdd = ({ uuid }) => {
 
     const props = {
         variant: "subtle",
+        size: "xl",
         className: "EditBarIcon",
         onClick: handleOnClick,
     }

@@ -15,15 +15,15 @@ const ActionEditBar = ({ uuid }) => {
     }
 
     return (
-        // <>
-        //    {actionActive == uuid && 
+        <>
+            {actionActive == uuid &&
                 <div {...props}>
                     <ActionIconAdd uuid={uuid} />
                     <ActionIconEdit uuid={uuid} />
                     <ActionIconDelete uuid={uuid} />
                 </div>
-        //     }
-        // </>
+            }
+        </>
     )
 };
 

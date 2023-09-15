@@ -2,12 +2,13 @@ import { Accordion, Paper, Card, Title, Text } from "@mantine/core"
 import ActionDatumHeader from "../ActionDatumHeader/ActionDatumHeader"
 import ActionDatumContent from "../ActionDatumContent/ActionDatumContent"
 import { useDispatch, useSelector } from "react-redux"
-import { DependentActionsSelector, setActiveAction } from "./DatastreamSlice"
+import { DatastreamRatioSelector, DependentActionsSelector, setActiveAction } from "./DatastreamSlice"
 import { FiChevronRight } from "react-icons/fi"
 import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react"
 
 const ActionList = forwardRef(({ parentUuid }, ref) => {
     const actions = useSelector((state) => DependentActionsSelector(state, parentUuid));
+
     const dispatch = useDispatch();
     const [accordionValue, setAccordionValue] = useState(null);
     const childAccordionRef = useRef();
@@ -21,7 +22,9 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
             setAccordionValue(value)
         },
         style: {
-
+            onToggle: () => {
+                console.log('touched control')
+            }
         },
         styles: {
             chevron: {
@@ -31,14 +34,14 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
             },
             content: {
                 padding: "0px",
-                paddingTop: "1rem",
             },
             control: {
-                paddingTop: "1rem",
-                paddingBottom: "1rem",
+                paddingTop: "0.5rem",
+                paddingBottom: "0.5rem",
+
+
             },
             item: {
-
                 marginTop: "-100px",
                 paddingBottom: "-100px",
 
@@ -70,10 +73,7 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
 
     return (
         <Paper style={{
-            width: "calc(100% + 2rem)",
-            marginLeft: "-1rem",
-            paddingLeft: "1rem",
-            paddingRight: "1rem",
+
             overflow: 'hidden',
             position: 'relative',
             paddingBottom: '1rem',
@@ -117,11 +117,13 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
 
 const Datastream = ({ }) => {
 
+    const { n, d } = useSelector((state) => DatastreamRatioSelector(state, ''));
+
     return (
         <>
             <Card style={{ width: 'calc(100% - 2rem)', left: '50%', transform: 'translate(calc(-50% - 1rem) , 0)', margin: '1rem' }} shadow="sm" padding="lg" radius="md" withBorder>
                 <Title>Datastream</Title>
-                <Text>Your first datastream</Text>
+                <Text>Your first datastream {n + "/" + d}</Text>
             </Card>
             <ActionList parentUuid={''} />
         </>
