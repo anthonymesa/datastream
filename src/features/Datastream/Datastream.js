@@ -19,12 +19,16 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
         chevron: <FiChevronRight />,
         value: accordionValue,
         onChange: (value) => {
-            setAccordionValue(value)
+            if (value == null) {
+                setAccordionValue(null)
+                dispatch(setActiveAction({ uuid: parentUuid }));
+            } else {
+                setAccordionValue(value)
+                dispatch(setActiveAction({ uuid: value }));
+            }
         },
         style: {
-            onToggle: () => {
-                console.log('touched control')
-            }
+
         },
         styles: {
             chevron: {
@@ -57,7 +61,7 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
     }
 
     useEffect(() => {
-        if ((accordionValue == null) && childAccordionRef.current) {
+        if (childAccordionRef.current) {
             childAccordionRef.current.resetAccordion()
         }
     }, [accordionValue])

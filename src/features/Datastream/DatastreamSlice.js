@@ -122,7 +122,6 @@ const DatastreamState = createSlice({
         },
         setActiveAction: (state, action) => {
             const { uuid } = action.payload;
-            console.log(uuid)
             state.activeAction = uuid;
         }
     }
