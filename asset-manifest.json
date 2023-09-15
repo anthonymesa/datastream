@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.810ea04a.css",
-    "main.js": "/static/js/main.8f57b5e2.js",
-    "static/js/787.e5ff8f94.chunk.js": "/static/js/787.e5ff8f94.chunk.js",
-    "index.html": "/index.html",
-    "main.810ea04a.css.map": "/static/css/main.810ea04a.css.map",
-    "main.8f57b5e2.js.map": "/static/js/main.8f57b5e2.js.map",
-    "787.e5ff8f94.chunk.js.map": "/static/js/787.e5ff8f94.chunk.js.map"
+    "main.css": "/enigma-project-manager/static/css/main.810ea04a.css",
+    "main.js": "/enigma-project-manager/static/js/main.f867c79e.js",
+    "static/js/787.e5ff8f94.chunk.js": "/enigma-project-manager/static/js/787.e5ff8f94.chunk.js",
+    "index.html": "/enigma-project-manager/index.html",
+    "main.810ea04a.css.map": "/enigma-project-manager/static/css/main.810ea04a.css.map",
+    "main.f867c79e.js.map": "/enigma-project-manager/static/js/main.f867c79e.js.map",
+    "787.e5ff8f94.chunk.js.map": "/enigma-project-manager/static/js/787.e5ff8f94.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.810ea04a.css",
-    "static/js/main.8f57b5e2.js"
+    "static/js/main.f867c79e.js"
   ]
 }
