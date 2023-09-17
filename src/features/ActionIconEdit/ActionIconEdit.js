@@ -1,7 +1,7 @@
 import { ActionIcon } from "@mantine/core"
 import { FiEdit } from "react-icons/fi"
 import { useDispatch } from "react-redux"
-import { open, setParentId } from "../ModalActionAdd/ModalActionAddSlice"
+import { setParentId } from "../ModalActionAdd/ModalActionAddSlice"
 
 const ActionIconEdit = ({ uuid }) => {
 
@@ -9,7 +9,6 @@ const ActionIconEdit = ({ uuid }) => {
 
     const handleOnClick = () => {
         dispatch(setParentId({ uuid: uuid }));
-        dispatch(open({}));
     }
 
     const props = {

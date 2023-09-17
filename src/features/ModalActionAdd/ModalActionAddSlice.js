@@ -1,25 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialForm = {
+  parentId: '',
+  title: '',
+  description: '',
+  tags: [],
+  state: 'paused',
+}
+
 const initialState = {
     opened: false,
-    form: {
-        parentId: '',
-        title: '',
-        description: '',
-        tags: [],
-        state: 'incomplete',
-    }
+    form: initialForm
 }
 
 const ModalActionAddState = createSlice({
     name: "ModalActionAddState",
     initialState: initialState,
     reducers: {
-        open: (state, action) => {
-            state.opened = true;
+        clearForm: (state, action) => {
+          state.form = initialForm
         },
-        close: (state, action) => {
-            state.opened = false;
+        openModal: (state, action) => {
+          state.opened = true
+        },
+        closeModal: (state, action) => {
+          state.opened = false
         },
         setParentId: (state, action) => {
             const { value } = action.payload;
@@ -45,12 +50,17 @@ const ModalActionAddState = createSlice({
 })
 
 export const formSelector = (state) => {
-    return state.ui.modals.actionAdd.form;
+  return state.ui.modals.actionAdd.form
+}
+
+export const openedSelector = (state)  => {
+  return state.ui.modals.actionAdd.opened
 }
 
 export const {
-    open,
-    close,
+    clearForm,
+    openModal,
+    closeModal,
     setParentId,
     setTitle,
     setDescription,

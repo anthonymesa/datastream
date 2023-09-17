@@ -1,16 +1,17 @@
 import { ActionIcon } from "@mantine/core"
 import { FiPlusSquare } from "react-icons/fi"
 import { useDispatch } from "react-redux"
-import { open, setParentId } from "../ModalActionAdd/ModalActionAddSlice"
+import { setParentId, openModal } from "../ModalActionAdd/ModalActionAddSlice"
 import "../ActionEditBar/ActionEditBar.css"
+import { TextInput, Button } from '@mantine/core'
 
 const ActionIconAdd = ({ uuid }) => {
 
     const dispatch = useDispatch();
-
+      
     const handleOnClick = () => {
-        dispatch(setParentId({ uuid: uuid }))
-        dispatch(open({}));
+        dispatch(setParentId({ value: uuid }))
+        dispatch(openModal({}));
     }
 
     const props = {

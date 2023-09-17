@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from 'uuid';
 
 export const ACTION_STATE = {
     PAUSED: 'paused',
@@ -72,6 +73,11 @@ const DatastreamState = createSlice({
     name: "DatastreamState",
     initialState: initialState,
     reducers: {
+        addAction: (state, action) => {
+          const { newAction } = action.payload
+          newAction["uuid"] = uuidv4()
+          state.actions.push(newAction)
+        },
         deleteAction: (state, action) => {
             const { uuid } = action.payload;
             state.actions = state.actions.filter((x) => x.uuid !== uuid);
@@ -201,7 +207,15 @@ export const DatastreamRatioSelector = (state, id) => {
     }
 }
 
+export const actionTitlesSelector = (state) => {
+  return state.datastream.actions.map((e) => ({
+    label: e.title,
+    value: e.uuid
+  }))
+}
+
 export const {
+    addAction,
     deleteAction,
     cycleState,
     updateParentState,

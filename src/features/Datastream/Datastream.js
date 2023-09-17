@@ -95,7 +95,7 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
             <Accordion {...props}>
                 {actions.map(action => (
                     <Accordion.Item key={action.uuid} value={action.uuid}>
-                        <ActionDatumHeader uuid={action.uuid}>{action.uuid}</ActionDatumHeader>
+                        <ActionDatumHeader uuid={action.uuid}>{action.title}</ActionDatumHeader>
                         <Accordion.Panel>
                             <ActionDatumContent uuid={action.uuid} />
                             {actions.length > 0 &&
