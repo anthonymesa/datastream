@@ -67,6 +67,7 @@ const initialState = {
         },
     ],
     activeAction: '',
+    name: 'datastream'
 }
 
 const DatastreamState = createSlice({
@@ -77,6 +78,17 @@ const DatastreamState = createSlice({
           const { newAction } = action.payload
           newAction["uuid"] = uuidv4()
           state.actions.push(newAction)
+        },
+        updateAction: (state, action) => {
+          const { uuid, data } = action.payload;
+
+          const actionIndex = state.actions.findIndex((e) => e.uuid == uuid);
+
+          if (actionIndex != -1) {
+            state.actions[actionIndex] = data;
+          }
+          
+          state.actions[actionIndex]["uuid"] = uuid
         },
         deleteAction: (state, action) => {
             const { uuid } = action.payload;
@@ -208,13 +220,25 @@ export const DatastreamRatioSelector = (state, id) => {
 }
 
 export const actionTitlesSelector = (state) => {
-  return state.datastream.actions.map((e) => ({
+  const actionsList = state.datastream.actions.map((e) => ({
     label: e.title,
     value: e.uuid
   }))
+  
+  actionsList.push({
+    label: "Datastream",
+    value: '',
+  })
+  
+  return actionsList
+}
+
+export const actionSelector = (state, uuid) => {
+  return state.datastream.actions.find((e) => e.uuid == uuid)
 }
 
 export const {
+    updateAction,
     addAction,
     deleteAction,
     cycleState,
