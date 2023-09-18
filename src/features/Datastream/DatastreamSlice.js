@@ -8,7 +8,36 @@ export const ACTION_STATE = {
 }
 
 const initialState = {
-    actions: [],
+    actions: [
+        {
+            parentUuid: '',
+            uuid: '1',
+            tags: [],
+            title: 'This is an action. Click to see more!',
+            description: 'A description can be used to give more details about an action. The buttons below allow you to add, edit or delete a datum (only action data is supported currently).
+        },
+        {
+            parentUuid: '1',
+            uuid: '2',
+            tags: [],
+            title: 'This is a sub action.',
+            description: 'The completed state of a sub action affects the completed state of the parent action. The three action states are \'paused\', \'incomplete\', and \'complete\'. Select the gizmo on this task to cycle through the states.'
+        },
+        {
+            parentUuid: 1',
+            uuid: '3',
+            tags: [],
+            title: 'This is another sub action!',
+            description: 'All incomplete sub actions must be completed for a parent action to be complete. Setting an action to \'paused\' is helpful if an action is no long required for completion, but is still relevant to the parent action.'
+        },
+        {
+            parentUuid: '3',
+            uuid: '1',
+            tags: [],
+            title: 'Nest your data as deep as you want!',
+            description: 'Currently in v1.0, the only data you can create for a datastream is an Action, but later versions will include the ability to manage memos, files, and bookmark links in your datastream as well!
+        }, 
+    ],
     activeAction: '',
     name: 'datastream'
 }
