@@ -24,7 +24,7 @@ const initialState = {
             description: 'The completed state of a sub action affects the completed state of the parent action. The three action states are \'paused\', \'incomplete\', and \'complete\'. Select the gizmo on this task to cycle through the states.'
         },
         {
-            parentUuid: 1',
+            parentUuid: '1',
             uuid: '3',
             tags: [],
             title: 'This is another sub action!',
