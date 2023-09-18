@@ -14,7 +14,7 @@ const initialState = {
             uuid: '1',
             tags: [],
             title: 'This is an action. Click to see more!',
-            description: 'A description can be used to give more details about an action. The buttons below allow you to add, edit or delete a datum (only action data is supported currently).
+            description: 'A description can be used to give more details about an action. The buttons below allow you to add, edit or delete a datum (only action data is supported currently).'
         },
         {
             parentUuid: '1',
@@ -35,7 +35,7 @@ const initialState = {
             uuid: '1',
             tags: [],
             title: 'Nest your data as deep as you want!',
-            description: 'Currently in v1.0, the only data you can create for a datastream is an Action, but later versions will include the ability to manage memos, files, and bookmark links in your datastream as well!
+            description: 'Currently in v1.0, the only data you can create for a datastream is an Action, but later versions will include the ability to manage memos, files, and bookmark links in your datastream as well!'
         }, 
     ],
     activeAction: '',
