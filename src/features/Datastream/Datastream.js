@@ -1,4 +1,4 @@
-import { Accordion, Paper, Card, Title, Text } from "@mantine/core"
+import { Accordion, Paper, Card, Title, Text, Group, Stack } from "@mantine/core"
 import ActionDatumHeader from "../ActionDatumHeader/ActionDatumHeader"
 import ActionDatumContent from "../ActionDatumContent/ActionDatumContent"
 import { useDispatch, useSelector } from "react-redux"
@@ -72,6 +72,10 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
         }
     }), [accordionValue]);
 
+    if (actions.length == 0 && parentUuid == '') {
+        return (<div style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center", position: 'relative', height: 'calc(100vh - 141px)' }}><Text style={{ width: "50%", position: 'absolute', bottom: '25%', transform: "translate(0, 0%)" }} c="dimmed" fs="italic">Use the menu below to create a new Datum!</Text></div>)
+    }
+
     if (actions.length == 0)
         return (<></>);
 
@@ -126,8 +130,15 @@ const Datastream = ({ }) => {
     return (
         <>
             <Card style={{ width: 'calc(100% - 2rem)', left: '50%', transform: 'translate(calc(-50% - 1rem) , 0)', margin: '1rem' }} shadow="sm" padding="lg" radius="md" withBorder>
-                <Title>Datastream</Title>
-                <Text>Your first datastream {n + "/" + d}</Text>
+                <Group style={{ width: '100%' }}>
+                    <Stack style={{ flexGrow: 1 }}>
+                        <Title>Datastream</Title>
+                        <Text>Your first datastream</Text>
+                    </Stack>
+                    <Stack style={{ flexGrow: 0 }}>
+                        <Title>{n + "/" + d}</Title>
+                    </Stack>
+                </Group>
             </Card>
             <ActionList parentUuid={''} />
         </>

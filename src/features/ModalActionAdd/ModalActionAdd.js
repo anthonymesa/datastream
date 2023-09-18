@@ -1,30 +1,30 @@
 import { TextInput, Button, Select, Modal, Textarea } from '@mantine/core';
 import { formSelector, setParentId, setTitle, openedSelector, closeModal, setActionState, setDescription, clearForm } from './ModalActionAddSlice';
-import { actionTitlesSelector, addAction, ACTION_STATE} from '../Datastream/DatastreamSlice'
+import { actionTitlesSelector, addAction, ACTION_STATE } from '../Datastream/DatastreamSlice'
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 
 const ParentIdSelector = () => {
-  
+
   const { parentId } = useSelector((state) => formSelector(state));
   const dispatch = useDispatch();
   const actionTitles = useSelector((state) => actionTitlesSelector(state));
-  
+
   return (
     <div>
       <Select
         required
         searchable
         maxDropdownHeight={100}
-        value={ parentId  }
+        value={parentId}
         label="Parent Action"
         placeholder="Choose one..."
         dropdownPosition="bottom"
         style={{}}
         data={actionTitles}
-        onChange={(event) => {
-          dispatch(setParentId({ value: event.value }));
+        onChange={(value) => {
+          dispatch(setParentId({ value: value }));
         }}
       />
     </div>
@@ -32,13 +32,13 @@ const ParentIdSelector = () => {
 }
 
 const TitleTextInput = () => {
-  
+
   const form = useSelector((state) => formSelector(state));
   const dispatch = useDispatch();
-  
+
   return (
     <div>
-      <TextInput 
+      <TextInput
         required
         label="Title"
         placeholder=""
@@ -51,10 +51,10 @@ const TitleTextInput = () => {
   )
 }
 const DescriptionTextbox = () => {
-  
+
   const { description } = useSelector(formSelector)
   const dispatch = useDispatch()
-  
+
   return (
     <div>
       <Textarea
@@ -63,8 +63,8 @@ const DescriptionTextbox = () => {
         autosize
         minRows={4}
         maxRows={8}
-        onChange={(event) => 
-          dispatch(setDescription({value: event.currentTarget.value}))
+        onChange={(event) =>
+          dispatch(setDescription({ value: event.currentTarget.value }))
         }
         value={description}
       />
@@ -75,15 +75,15 @@ const DescriptionTextbox = () => {
 const TagsGroupSelector = () => {
   return (
     <div>
-      
+
     </div>
   )
 }
 
 const ActionStateSelector = () => {
-  
+
   const dispatch = useDispatch()
-  
+
   return (
     <div>
       <Select
@@ -102,22 +102,24 @@ const ActionStateSelector = () => {
 }
 
 const SubmitButton = () => {
- 
-  const form = useSelector(formSelector) 
+
+  const form = useSelector(formSelector)
   const dispatch = useDispatch()
-  
+
   const handleOnClick = () => {
-    dispatch(addAction({ newAction: {
-            parentUuid: form.parentId,
-            title: form.title,
-            description: form.description,
-            tags: [],
-            state: form.state,
-    }}))
+    dispatch(addAction({
+      newAction: {
+        parentUuid: form.parentId,
+        title: form.title,
+        description: form.description,
+        tags: [],
+        state: form.state,
+      }
+    }))
     dispatch(closeModal({}))
     dispatch(clearForm({}))
   }
-  
+
   return (
     <div>
       <Button onClick={handleOnClick}>
@@ -128,21 +130,21 @@ const SubmitButton = () => {
 }
 
 const ModalActionAdd = () => {
-  
+
   const openedState = useSelector((state) => openedSelector(state))
   const dispatch = useDispatch()
-  
+
   const handleOnClose = () => {
     dispatch(closeModal({}))
   }
-  
+
   return (
     <Modal overflow="outside" centered title="Add new action" opened={openedState} onClose={handleOnClose}>
       <div>
         <ParentIdSelector />
         <TitleTextInput />
         <DescriptionTextbox />
-        <div style={{display: "flex", justifyContent: "center", paddingTop: "1rem"}}>
+        <div style={{ display: "flex", justifyContent: "center", paddingTop: "1rem" }}>
           <SubmitButton />
         </div>
       </div>
