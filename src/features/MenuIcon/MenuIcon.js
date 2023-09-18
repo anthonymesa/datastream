@@ -64,8 +64,8 @@ function MenuIcon() {
        
       </Menu.Target>
       <Menu.Dropdown>
-      <Menu.Label>Create...</Menu.Label>
-      <Menu.Item onClick={handleNewActionClick}>New Action</Menu.Item>
+      <Menu.Label>Create new datum...</Menu.Label>
+      <Menu.Item onClick={handleNewActionClick}>Action</Menu.Item>
       <Divider/>
       <Menu.Label>Misc.</Menu.Label>
       <Menu.Item disabled>Settings</Menu.Item>
