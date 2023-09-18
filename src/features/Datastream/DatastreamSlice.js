@@ -8,64 +8,7 @@ export const ACTION_STATE = {
 }
 
 const initialState = {
-    actions: [
-        {
-            parentUuid: '',
-            uuid: 'faefoijaefoijaefoija',
-            title: 'A Title',
-            description: 'A fancy description',
-            tags: [],
-            state: 'paused',
-        },
-        {
-            parentUuid: '',
-            uuid: 'fiojoiejfoaije',
-            title: 'A Title 2',
-            description: 'A fancy description',
-            tags: [],
-            state: 'paused',
-        },
-        {
-            parentUuid: 'faefoijaefoijaefoija',
-            uuid: 'alfdlifhsl',
-            title: 'A Title 3',
-            description: 'A fancy description',
-            tags: [],
-            state: 'paused',
-        },
-        {
-            parentUuid: 'faefoijaefoijaefoija',
-            uuid: 'fjeajfeiljfa',
-            title: 'A Title 4',
-            description: 'A fancy description',
-            tags: [],
-            state: 'paused',
-        },
-        {
-            parentUuid: '',
-            uuid: 'fjeajfeiahdiuaheljfa',
-            title: 'A Title 4',
-            description: 'A fancy description',
-            tags: [],
-            state: 'paused',
-        },
-        {
-            parentUuid: '',
-            uuid: 'fjeafhailfhiwuafhjfeiljfa',
-            title: 'A Title 4',
-            description: 'A fancy description',
-            tags: [],
-            state: 'paused',
-        },
-        {
-            parentUuid: '',
-            uuid: 'fjeajdhaiuehdauiedhfeiljfa',
-            title: 'A Title 4',
-            description: 'A fancy description',
-            tags: [],
-            state: 'paused',
-        },
-    ],
+    actions: [],
     activeAction: '',
     name: 'datastream'
 }
@@ -75,20 +18,20 @@ const DatastreamState = createSlice({
     initialState: initialState,
     reducers: {
         addAction: (state, action) => {
-          const { newAction } = action.payload
-          newAction["uuid"] = uuidv4()
-          state.actions.push(newAction)
+            const { newAction } = action.payload
+            newAction["uuid"] = uuidv4()
+            state.actions.push(newAction)
         },
         updateAction: (state, action) => {
-          const { uuid, data } = action.payload;
+            const { uuid, data } = action.payload;
 
-          const actionIndex = state.actions.findIndex((e) => e.uuid == uuid);
+            const actionIndex = state.actions.findIndex((e) => e.uuid == uuid);
 
-          if (actionIndex != -1) {
-            state.actions[actionIndex] = data;
-          }
-          
-          state.actions[actionIndex]["uuid"] = uuid
+            if (actionIndex != -1) {
+                state.actions[actionIndex] = data;
+            }
+
+            state.actions[actionIndex]["uuid"] = uuid
         },
         deleteAction: (state, action) => {
             const { uuid } = action.payload;
@@ -220,21 +163,21 @@ export const DatastreamRatioSelector = (state, id) => {
 }
 
 export const actionTitlesSelector = (state) => {
-  const actionsList = state.datastream.actions.map((e) => ({
-    label: e.title,
-    value: e.uuid
-  }))
-  
-  actionsList.push({
-    label: "Datastream",
-    value: '',
-  })
-  
-  return actionsList
+    const actionsList = state.datastream.actions.map((e) => ({
+        label: e.title,
+        value: e.uuid
+    }))
+
+    actionsList.push({
+        label: "Datastream",
+        value: '',
+    })
+
+    return actionsList
 }
 
 export const actionSelector = (state, uuid) => {
-  return state.datastream.actions.find((e) => e.uuid == uuid)
+    return state.datastream.actions.find((e) => e.uuid == uuid)
 }
 
 export const {
