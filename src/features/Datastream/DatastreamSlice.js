@@ -35,7 +35,7 @@ const initialState = {
         },
         {
             parentUuid: '3',
-            uuid: '1',
+            uuid: '4',
             tags: [],
             title: 'Nest your data as deep as you want!',
             description: 'Currently in v1.0, the only data you can create for a datastream is an Action, but later versions will include the ability to manage memos, files, and bookmark links in your datastream as well!',
