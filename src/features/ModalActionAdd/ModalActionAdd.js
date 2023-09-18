@@ -41,7 +41,7 @@ const TitleTextInput = () => {
       <TextInput
         required
         label="Title"
-        placeholder=""
+        placeholder="e.g., Meeting with John"
         onChange={(event) => {
           dispatch(setTitle({ value: event.currentTarget.value }));
         }}
@@ -59,7 +59,7 @@ const DescriptionTextbox = () => {
     <div>
       <Textarea
         label="Description"
-        placeholder="..."
+        placeholder="e.g., Discuss project updates and next steps."
         autosize
         minRows={4}
         maxRows={8}
