@@ -49,13 +49,12 @@ function MenuIcon() {
           ...transitionStyles,
           position: 'fixed',
           bottom: 0,
-          width: '100%',
-          display: "flex",
-          justifyContent: "center",
+          left: '50%',              // Add this line
+          transform: 'translateX(-50%)',  // Add this line
           paddingBottom: "2rem",
           zIndex: 100
         }}>
-          <Menu zIndex={1000} width={"50%"} position={"top"}>
+          <Menu zIndex={1000} width={"14rem"} position={"top"}>
             <Menu.Target>
               <ActionIcon
                 style={{ boxShadow: "0px 0px 5px 1px rgba(0, 0, 0, .25)" }}
