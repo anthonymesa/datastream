@@ -14,7 +14,7 @@ const ActionDescription = ({ uuid }) => {
     return (
         <div style={divStyle}>
             <Card style={{}} shadow="sm" padding="lg" radius="md" withBorder>
-                <Text>{description}</Text>
+                <pre style={{ whiteSpace: 'pre-wrap' }}><Text>{description}</Text></pre>
             </Card>
         </div>
     )

@@ -5,11 +5,11 @@ if (!('indexedDB' in window)) {
 
 let db;
 
-const DBOpenRequest = window.indexedDB.open('twiperdb', 2);
+const DBOpenRequest = window.indexedDB.open('enigmaProjectManager', 3);
 
 DBOpenRequest.onupgradeneeded = (event) => {
     const db = event.target.result;
-    db.createObjectStore('tasks', {
+    db.createObjectStore('datastream', {
         keyPath: 'uuid',
     })
 }
@@ -24,13 +24,13 @@ DBOpenRequest.onsuccess = (event) => {
 };
 
 export default {
-    tasks: {
-        add: (task) => {
+    datastream: {
+        add: (datum) => {
             return new Promise((resolve, reject) => {
-                const tx = db.transaction('tasks', 'readwrite');
-                const store = tx.objectStore('tasks');
-                const request = store.add(task);
-                
+                const tx = db.transaction('datastream', 'readwrite');
+                const store = tx.objectStore('datastream');
+                const request = store.add(datum);
+
                 request.onsuccess = () => {
                     resolve(request.result);
                 };
@@ -48,12 +48,12 @@ export default {
                 };
             });
         },
-        edit: (task) => {
+        edit: (datum) => {
             return new Promise((resolve, reject) => {
-                const tx = db.transaction('tasks', 'readwrite');
-                const store = tx.objectStore('tasks');
-                const request = store.put(task);
-                
+                const tx = db.transaction('datastream', 'readwrite');
+                const store = tx.objectStore('datastream');
+                const request = store.put(datum);
+
                 request.onsuccess = () => {
                     resolve(request.result);
                 };
@@ -73,10 +73,10 @@ export default {
         },
         get: (uuid) => {
             return new Promise((resolve, reject) => {
-                const tx = db.transaction('tasks', 'readonly');
-                const store = tx.objectStore('tasks');
+                const tx = db.transaction('datastream', 'readonly');
+                const store = tx.objectStore('datastream');
                 const request = store.get(uuid);
-                
+
                 request.onsuccess = () => {
                     resolve(request.result);
                 };
@@ -96,10 +96,10 @@ export default {
         },
         getAll: () => {
             return new Promise((resolve, reject) => {
-                const tx = db.transaction('tasks', 'readonly');
-                const store = tx.objectStore('tasks');
+                const tx = db.transaction('datastream', 'readonly');
+                const store = tx.objectStore('datastream');
                 const request = store.getAll();
-                
+
                 request.onsuccess = () => {
                     resolve(request.result);
                 };
@@ -119,10 +119,10 @@ export default {
         },
         delete: (uuid) => {
             return new Promise((resolve, reject) => {
-                const tx = db.transaction('tasks', 'readwrite');
-                const store = tx.objectStore('tasks');
+                const tx = db.transaction('datastream', 'readwrite');
+                const store = tx.objectStore('datastream');
                 const request = store.delete(uuid);
-                
+
                 request.onsuccess = () => {
                     resolve(request.result);
                 };

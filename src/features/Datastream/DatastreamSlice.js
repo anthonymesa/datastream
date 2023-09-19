@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from 'uuid';
+import localStorage from "../../app/localStorage";
 
 export const ACTION_STATE = {
     PAUSED: 'paused',
@@ -7,14 +8,39 @@ export const ACTION_STATE = {
     COMPLETE: 'complete',
 }
 
-const initialState = {
-    actions: [
+
+const msg1 =
+    `A description can be used to give more details about an action. Currently the descriptions are just text with formatting, but in a future release they will be markdown, so that styling and formatting looks that much better!
+
+The buttons below allow you to add, edit or delete a datum (only action data is supported currently).`
+
+
+const msg2 =
+    `The completed state of a sub action affects the completed state of the parent action. The three action states are:
+
+- Paused
+- Incomplete
+- Complete
+
+Select the gizmo on this task to cycle through the states.`
+
+const msg3 =
+    `All incomplete sub actions must be completed for a parent action to be complete. 
+    
+Setting an action to a 'paused' state is helpful if an action is still relevant to its parent, but isn't required for the parent to be completed.
+`
+
+const msg4 =
+    `Currently in v1.0, the only data you can create for a datastream is an Action, but later versions will include the ability to manage memos, files, and bookmark links in your datastream as well!`
+
+function getDefaultActions() {
+    return [
         {
             parentUuid: '',
             uuid: '1',
             tags: [],
             title: 'This is an action. Click to see more!',
-            description: 'A description can be used to give more details about an action. The buttons below allow you to add, edit or delete a datum (only action data is supported currently).',
+            description: msg1,
             state: 'paused'
         },
         {
@@ -22,7 +48,7 @@ const initialState = {
             uuid: '2',
             tags: [],
             title: 'This is a sub action.',
-            description: 'The completed state of a sub action affects the completed state of the parent action. The three action states are \'paused\', \'incomplete\', and \'complete\'. Select the gizmo on this task to cycle through the states.',
+            description: msg2,
             state: 'paused'
         },
         {
@@ -30,7 +56,7 @@ const initialState = {
             uuid: '3',
             tags: [],
             title: 'This is another sub action!',
-            description: 'All incomplete sub actions must be completed for a parent action to be complete. Setting an action to \'paused\' is helpful if an action is no long required for completion, but is still relevant to the parent action.',
+            description: msg3,
             state: 'paused'
         },
         {
@@ -38,10 +64,14 @@ const initialState = {
             uuid: '4',
             tags: [],
             title: 'Nest your data as deep as you want!',
-            description: 'Currently in v1.0, the only data you can create for a datastream is an Action, but later versions will include the ability to manage memos, files, and bookmark links in your datastream as well!',
+            description: msg4,
             state: 'paused'
-        }, 
-    ],
+        },
+    ];
+}
+
+const initialState = {
+    actions: getDefaultActions(),
     activeAction: '',
     name: 'datastream'
 }
@@ -50,6 +80,10 @@ const DatastreamState = createSlice({
     name: "DatastreamState",
     initialState: initialState,
     reducers: {
+        setActions: (state, action) => {
+            const { actions } = action.payload
+            state.actions = actions
+        },
         addAction: (state, action) => {
             const { newAction } = action.payload
             newAction["uuid"] = uuidv4()

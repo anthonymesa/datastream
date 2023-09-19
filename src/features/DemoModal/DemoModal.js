@@ -6,7 +6,7 @@ const DemoModal = () => {
     const [opened, { open, close }] = useDisclosure(true);
 
     return (
-        <Modal centered size={"70%"} title="Welcome!" opened={opened} onClose={close}>
+        <Modal centered size={"85%"} title="Welcome!" opened={opened} onClose={close}>
             <Title>Datastream v1.0</Title>
             <Text>This is a demo of version 1.0 of Datastream. Datastream is a task management and scheduling application, some of the features include:</Text>
             <ul>
