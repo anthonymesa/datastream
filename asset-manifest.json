@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/enigma-project-manager/static/css/main.810ea04a.css",
-    "main.js": "/enigma-project-manager/static/js/main.0633dc65.js",
+    "main.js": "/enigma-project-manager/static/js/main.44862db2.js",
     "static/js/787.e5ff8f94.chunk.js": "/enigma-project-manager/static/js/787.e5ff8f94.chunk.js",
     "index.html": "/enigma-project-manager/index.html",
     "main.810ea04a.css.map": "/enigma-project-manager/static/css/main.810ea04a.css.map",
-    "main.0633dc65.js.map": "/enigma-project-manager/static/js/main.0633dc65.js.map",
+    "main.44862db2.js.map": "/enigma-project-manager/static/js/main.44862db2.js.map",
     "787.e5ff8f94.chunk.js.map": "/enigma-project-manager/static/js/787.e5ff8f94.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.810ea04a.css",
-    "static/js/main.0633dc65.js"
+    "static/js/main.44862db2.js"
   ]
 }
