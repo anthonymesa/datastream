@@ -140,7 +140,7 @@ const Datastream = ({ }) => {
                     </Stack>
                 </Group>
             </Card>
-            <ActionList parentUuid={''} />
+            <ActionList style={{marginBottom: "6rem"}} parentUuid={''} />
         </>
     )
 }
