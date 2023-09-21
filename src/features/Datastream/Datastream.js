@@ -129,18 +129,20 @@ const Datastream = ({ }) => {
 
     return (
         <>
-            <Card style={{ width: 'calc(100% - 2rem)', left: '50%', transform: 'translate(calc(-50% - 1rem) , 0)', margin: '1rem' }} shadow="sm" padding="lg" radius="md" withBorder>
-                <Group style={{ width: '100%' }}>
-                    <Stack style={{ flexGrow: 1 }}>
-                        <Title>Datastream</Title>
-                        <Text>Your first datastream</Text>
-                    </Stack>
-                    <Stack style={{ flexGrow: 0 }}>
-                        <Title>{n + "/" + d}</Title>
-                    </Stack>
-                </Group>
-            </Card>
-            <ActionList style={{marginBottom: "6rem"}} parentUuid={''} />
+            <Stack style={{ paddingBottom: '6rem' }} >
+                <Card style={{ width: 'calc(100% - 2rem)', left: '50%', transform: 'translate(calc(-50% - 1rem) , 0)', margin: '1rem' }} shadow="sm" padding="lg" radius="md" withBorder>
+                    <Group style={{ width: '100%' }}>
+                        <Stack style={{ flexGrow: 1 }}>
+                            <Title>Datastream</Title>
+                            <Text>Your first datastream</Text>
+                        </Stack>
+                        <Stack style={{ flexGrow: 0 }}>
+                            <Title>{n + "/" + d}</Title>
+                        </Stack>
+                    </Group>
+                </Card>
+                <ActionList parentUuid={''} />
+            </Stack>
         </>
     )
 }

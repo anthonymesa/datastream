@@ -13,16 +13,22 @@ function MenuIcon() {
   const addModalOpened = useSelector(store => store.ui.modals.actionAdd.opened);
   const editModalOpened = useSelector(store => store.ui.modals.actionEdit.opened);
   const [scroll, scrollTo] = useWindowScroll();
+  const prevScroll = useRef(scroll);
 
   // When scroll starts
   useEffect(() => {
-    setIsScrolling(true);
+    console.log(scroll.y, " ", prevScroll.current.y)
+    if (Math.abs(scroll.y - prevScroll.current.y) / 100 > 1)
+      setIsScrolling(true);
+    prevScroll.current = scroll
   }, [scroll]);
 
   // Using debounce to detect when scrolling has stopped
   const handleScrollEnd = debounce(() => {
-    setIsScrolling(false);
-  }, 500);
+    if (Math.abs(scroll.y - prevScroll.current.y) / 1000 < 1)
+      setIsScrolling(false);
+    prevScroll.current = scroll
+  }, 1000);
 
   useEffect(() => {
     handleScrollEnd();
