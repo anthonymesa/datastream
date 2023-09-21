@@ -76,6 +76,17 @@ const initialState = {
     name: 'datastream'
 }
 
+// Helper function to get all descendants of a given UUID
+const getAllDescendants = (actions, uuid) => {
+    let descendants = [];
+    const children = actions.filter(action => action.parentUuid === uuid);
+    descendants = descendants.concat(children);
+    children.forEach(child => {
+        descendants = descendants.concat(getAllDescendants(actions, child.uuid));
+    });
+    return descendants;
+}
+
 const DatastreamState = createSlice({
     name: "DatastreamState",
     initialState: initialState,
@@ -100,9 +111,12 @@ const DatastreamState = createSlice({
 
             state.actions[actionIndex]["uuid"] = uuid
         },
+        // Modified deleteAction reducer
         deleteAction: (state, action) => {
             const { uuid } = action.payload;
-            state.actions = state.actions.filter((x) => x.uuid !== uuid);
+            const descendants = getAllDescendants(state.actions, uuid);
+            const allUuidsToDelete = [uuid, ...descendants.map(descendant => descendant.uuid)];
+            state.actions = state.actions.filter(action => !allUuidsToDelete.includes(action.uuid));
         },
         cycleState: (state, action) => {
             const { uuid } = action.payload;

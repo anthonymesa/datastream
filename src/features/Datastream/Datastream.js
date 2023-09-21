@@ -2,7 +2,7 @@ import { Accordion, Paper, Card, Title, Text, Group, Stack } from "@mantine/core
 import ActionDatumHeader from "../ActionDatumHeader/ActionDatumHeader"
 import ActionDatumContent from "../ActionDatumContent/ActionDatumContent"
 import { useDispatch, useSelector } from "react-redux"
-import { DatastreamRatioSelector, DependentActionsSelector, setActiveAction } from "./DatastreamSlice"
+import { ActionsSelector, DatastreamRatioSelector, DependentActionsSelector, setActiveAction } from "./DatastreamSlice"
 import { FiChevronRight } from "react-icons/fi"
 import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react"
 
@@ -73,7 +73,7 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
     }), [accordionValue]);
 
     if (actions.length == 0 && parentUuid == '') {
-        return (<div style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center", position: 'relative', height: 'calc(100vh - 141px)' }}><Text style={{ width: "50%", position: 'absolute', bottom: '25%', transform: "translate(0, 0%)" }} c="dimmed" fs="italic">Use the menu below to create a new Datum!</Text></div>)
+        return (<div style={{ width: "100%", display: "flex", justifyContent: "center", textAlign: "center", position: 'relative', height: 'calc(100vh - 11rem)' }}><Text style={{ width: "50%", position: 'absolute', bottom: '25%', transform: "translate(0, 0%)" }} c="dimmed" fs="italic">Use the menu below to create a new Datum!</Text></div>)
     }
 
     if (actions.length == 0)
@@ -125,11 +125,14 @@ const ActionList = forwardRef(({ parentUuid }, ref) => {
 
 const Datastream = ({ }) => {
 
+    const actions = useSelector(ActionsSelector)
     const { n, d } = useSelector((state) => DatastreamRatioSelector(state, ''));
+
+    const bottomPadding = actions.length > 0 ? '6rem' : '0rem'
 
     return (
         <>
-            <Stack style={{ paddingBottom: '6rem' }} >
+            <Stack style={{ marginBottom: bottomPadding }} >
                 <Card style={{ width: 'calc(100% - 2rem)', left: '50%', transform: 'translate(calc(-50% - 1rem) , 0)', margin: '1rem' }} shadow="sm" padding="lg" radius="md" withBorder>
                     <Group style={{ width: '100%' }}>
                         <Stack style={{ flexGrow: 1 }}>

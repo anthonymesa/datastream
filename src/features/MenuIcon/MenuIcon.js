@@ -17,7 +17,6 @@ function MenuIcon() {
 
   // When scroll starts
   useEffect(() => {
-    console.log(scroll.y, " ", prevScroll.current.y)
     if (Math.abs(scroll.y - prevScroll.current.y) / 100 > 1)
       setIsScrolling(true);
     prevScroll.current = scroll
