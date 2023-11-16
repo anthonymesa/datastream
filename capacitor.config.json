@@ -1,6 +1,6 @@
 {
-    "appId": "com.luridarc.enigmapm",
-    "appName": "enigmapm",
+    "appId": "com.anthonymesa.datastream",
+    "appName": "datastream",
     "bundledWebRuntime": false,
     "npmClient": "npm",
     "webDir": "build",
