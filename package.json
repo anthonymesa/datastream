@@ -2,7 +2,7 @@
   "name": "enigma-project-manager",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://anthonymesa.github.io/datastream",
+  "homepage": ".",
   "dependencies": {
     "@capacitor/android": "5.5.1",
     "@capacitor/cli": "^5.5.1",
@@ -27,7 +27,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "prebuild": "node setHomepage.js",
+    "build": "npm run prebuild && react-scripts build",
+    "build:production": "env-cmd -f .env.production npm run build",
+    "build:capacitor": "env-cmd -f .env.capacitor npm run build && npx cap sync android",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -50,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "react-test-renderer": "^18.2.0"
   }
 }
