@@ -1,21 +1,28 @@
 import ActionDescription from "../ActionDescription/ActionDescription"
 import ActionEditBar from "../ActionEditBar/ActionEditBar"
 import {useSelector} from 'react-redux'
-import {ActionDescriptionSelector} from '../Datastream/DatastreamSlice'
+import {ActionActiveSelector, ActionDescriptionSelector} from '../Datastream/DatastreamSlice'
+import styled from "styled-components"
+
+const Container = styled.div`
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    margin-bottom: ${
+        props => props.active ? '0' : '-2.5rem'
+    };
+    transition: margin-bottom 1s ease;
+`
+
 const ActionDatumContent = ({ uuid }) => {
   
-    const description = useSelector((state) => ActionDescriptionSelector(state, uuid))
-  
+    const activeAction = useSelector(ActionActiveSelector);
+
     return (
-        <div style={{
-            paddingLeft: "1rem",
-            paddingRight: "1rem",
-            paddingBottom: "1rem",
-        }}>
-            {description != '' && <ActionDescription uuid={uuid} />
-            }
+        <Container active={activeAction === uuid}>
+            <ActionDescription uuid={uuid} />
             <ActionEditBar uuid={uuid} />
-        </div>
+        </Container>
     )
 }
 

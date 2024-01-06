@@ -5,6 +5,7 @@ import ModalActionAddSlice from "../features/ModalActionAdd/ModalActionAddSlice"
 import ModalActionEditSlice from '../features/ModalActionEdit/ModalActionEditSlice'
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import DatashedSlice from "../features/Datashed/DatashedSlice";
 
 const persistConfig = {
   key: "enigma-store",
@@ -13,6 +14,7 @@ const persistConfig = {
 
 const baseReducer = combineReducers({
   datastream: DatastreamSlice,
+  datashed: DatashedSlice,
   ui: combineReducers({
     modals: combineReducers({
       actionAdd: ModalActionAddSlice,

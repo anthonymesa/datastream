@@ -37,31 +37,31 @@ function getDefaultActions() {
     return [
         {
             parentUuid: '',
-            uuid: '1',
+            uuid: 'action1',
             tags: [],
             title: 'This is an action. Click to see more!',
             description: msg1,
             state: 'paused'
         },
         {
-            parentUuid: '1',
-            uuid: '2',
+            parentUuid: 'action1',
+            uuid: 'action2',
             tags: [],
             title: 'This is a sub action.',
             description: msg2,
             state: 'paused'
         },
         {
-            parentUuid: '1',
-            uuid: '3',
+            parentUuid: 'action1',
+            uuid: 'action3',
             tags: [],
             title: 'This is another sub action!',
             description: msg3,
             state: 'paused'
         },
         {
-            parentUuid: '3',
-            uuid: '4',
+            parentUuid: 'action3',
+            uuid: 'action4',
             tags: [],
             title: 'Nest your data as deep as you want!',
             description: msg4,
@@ -73,7 +73,6 @@ function getDefaultActions() {
 const initialState = {
     actions: getDefaultActions(),
     activeAction: '',
-    name: 'datastream'
 }
 
 // Helper function to get all descendants of a given UUID
@@ -215,8 +214,13 @@ export const ActionProgressSelector = (state, uuid) => {
     return getActionProgress(state.datastream, uuid);
 }
 
-export const ActionsSelector = (state) => {
-    return state.datastream.actions;
+export const ActionsSelector = (state, uuids = []) => {
+    if (uuids.length == 0) return []
+    return state.datastream.actions.filter(each => uuids.includes(each.uuid))
+}
+
+export const ActionsCountSelector = (state) => {
+    return state.datastream.actions.length;
 }
 
 function getDependentActions(state, parentUuid) {

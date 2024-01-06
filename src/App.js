@@ -4,6 +4,9 @@ import ModalActionAdd from './features/ModalActionAdd/ModalActionAdd'
 import MenuIcon from './features/MenuIcon/MenuIcon'
 import ModalActionEdit from './features/ModalActionEdit/ModalActionEdit'
 import DemoModal from './features/DemoModal/DemoModal';
+import Datashed from './features/Datashed/Datashed';
+// import '@mantine/carousel/styles.css';
+
 function App() {
   return (
     <div>
@@ -11,7 +14,8 @@ function App() {
       <ModalActionAdd />
       <ModalActionEdit />
       <MenuIcon />
-      <Datastream />
+      <Datashed />
+      {/* <Datastream /> */}
     </div>
   );
 }

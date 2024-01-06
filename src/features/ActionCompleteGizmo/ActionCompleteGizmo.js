@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux"
 import { ActionProgressSelector, ActionCompleteSelector, cycleState, ActionStateSelector, ACTION_STATE, DependentActionsSelector, setState, toggleAndCheckParent } from "../Datastream/DatastreamSlice"
 
 const IncompleteIcon = () => {
-
     const props = {
         color: "gray",
         variant: "light",
@@ -21,7 +20,6 @@ const IncompleteIcon = () => {
 }
 
 const CompleteIcon = () => {
-
     const props = {
         color: "teal",
         variant: "light",
@@ -37,7 +35,6 @@ const CompleteIcon = () => {
 }
 
 const PausedIcon = () => {
-
     const props = {
         color: "blue",
         variant: "light",
@@ -53,7 +50,6 @@ const PausedIcon = () => {
 }
 
 const ActionCompleteGizmo = ({ uuid }) => {
-
     const progress = useSelector((state) => ActionProgressSelector(state, uuid));
     const actionState = useSelector((state) => ActionStateSelector(state, uuid));
     const [animatedProgress, setAnimateProgress] = useState(progress);

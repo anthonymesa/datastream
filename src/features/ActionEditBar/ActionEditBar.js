@@ -10,20 +10,14 @@ const ActionEditBar = ({ uuid }) => {
 
     const actionActive = useSelector((state) => ActionActiveSelector(state));
 
-    const props = {
-        className: "ActionEditBar"
-    }
-
     return (
-        <>
-            {actionActive == uuid &&
-                <div {...props}>
-                    <ActionIconAdd uuid={uuid} />
-                    <ActionIconEdit uuid={uuid} />
-                    <ActionIconDelete uuid={uuid} />
-                </div>
-            }
-        </>
+        <div {...{
+            className: `action-edit-bar ${actionActive === uuid ? 'active' : ''}`
+        }}>
+            <ActionIconAdd uuid={uuid} />
+            <ActionIconEdit uuid={uuid} />
+            <ActionIconDelete uuid={uuid} />
+        </div>
     )
 };
 
