@@ -14,9 +14,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <MantineProvider withGlobalStyles withNormalizeCSS>
-        <PersistGate persistor={persistor} >
+        {/* <PersistGate persistor={persistor} > */}
           <App />
-        </PersistGate>
+        {/* </PersistGate> */}
       </MantineProvider>
     </Provider>
   </React.StrictMode>

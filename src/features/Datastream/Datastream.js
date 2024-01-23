@@ -1,4 +1,4 @@
-import { Accordion, Paper, Card, Title, Text, Group, Stack } from "@mantine/core"
+import { Accordion, Paper, Card, Title, Text, Group, Stack, Center } from "@mantine/core"
 import ActionDatumHeader from "../ActionDatumHeader/ActionDatumHeader"
 import ActionDatumContent from "../ActionDatumContent/ActionDatumContent"
 import { useDispatch, useSelector } from "react-redux"
@@ -55,14 +55,17 @@ const EmptyMessage = styled(Text)`
 `
 
 const ActionList = forwardRef(({ parentUuid, datastreamUuid = ''}, ref) => {
-
     const datastreamActionsNames = useSelector((state) => actionNamesSelector(state, datastreamUuid))
     const datastreamActions = useSelector((state) => ActionsSelector(state, datastreamActionsNames))
     const dependentActions = useSelector((state) => DependentActionsSelector(state, parentUuid))
 
-    let actions = datastreamActions.length != 0 ? datastreamActions : dependentActions;
+    let actions
+    if (parentUuid == '') {
+        actions = datastreamActions.length != 0 ? datastreamActions : []
+    } else {
+        actions = dependentActions
+    }
 
-    console.log(actions)
     const dispatch = useDispatch();
     const [accordionValue, setAccordionValue] = useState(null);
     const childAccordionRef = useRef();
@@ -84,11 +87,10 @@ const ActionList = forwardRef(({ parentUuid, datastreamUuid = ''}, ref) => {
     if (actions.length === 0) {
         if (parentUuid === '') {
             return (
-                <EmptyMessageContainer>
-                    <EmptyMessage c="dimmed" fs="italic">
-                        Use the menu below to create a new Datum!
-                    </EmptyMessage> 
-                </EmptyMessageContainer>)
+                <Center style={{width: "100vw", position: "absolute", bottom: "11rem"}} c="dimmed" fs="italic">
+                    Use the menu below to create a new Datum!
+                </Center>
+            )
         } else {
             return null;
         }
@@ -154,18 +156,17 @@ const ActionList = forwardRef(({ parentUuid, datastreamUuid = ''}, ref) => {
     
     return (
         <Action>
-            <TopInsetShadow hide={parentUuid == ''}/>
+            <TopInsetShadow hide={(parentUuid == '').toString()}/>
             <Accordion {...accordionProps}>
                 {childActions}
             </Accordion>
-            <BottomInsetShadow hide={parentUuid == ''}/>
+            <BottomInsetShadow hide={(parentUuid == '').toString()}/>
         </Action>
     );
 })
 
 const Datastream = ({ uuid, name, description }) => {
     const actionLength = useSelector(ActionsCountSelector)
-    console.log(uuid)
     const { n, d } = useSelector((state) => DatastreamRatioSelector(state, ''));
     const bottomPadding = actionLength > 0 ? '6rem' : '0rem'
 

@@ -17,9 +17,8 @@ const Container = styled.div`
 const ActionDatumContent = ({ uuid }) => {
   
     const activeAction = useSelector(ActionActiveSelector);
-
     return (
-        <Container active={activeAction === uuid}>
+        <Container active={(activeAction === uuid).toString()}>
             <ActionDescription uuid={uuid} />
             <ActionEditBar uuid={uuid} />
         </Container>

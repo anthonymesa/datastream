@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from 'uuid';
 import localStorage from "../../app/localStorage";
+import { getUser } from "../../app/SessionManager/SessionManagerSlice";
+import { addActionToDatastream, currentFocusSelector } from "../Datashed/DatashedSlice";
 
 export const ACTION_STATE = {
     PAUSED: 'paused',
@@ -36,16 +38,18 @@ const msg4 =
 function getDefaultActions() {
     return [
         {
-            parentUuid: '',
             uuid: 'action1',
+            parentUuid: '',
+            userId: '',
             tags: [],
             title: 'This is an action. Click to see more!',
             description: msg1,
             state: 'paused'
         },
         {
-            parentUuid: 'action1',
             uuid: 'action2',
+            parentUuid: 'action1',
+            userId: '',
             tags: [],
             title: 'This is a sub action.',
             description: msg2,
@@ -54,6 +58,7 @@ function getDefaultActions() {
         {
             parentUuid: 'action1',
             uuid: 'action3',
+            userId: '',
             tags: [],
             title: 'This is another sub action!',
             description: msg3,
@@ -62,6 +67,7 @@ function getDefaultActions() {
         {
             parentUuid: 'action3',
             uuid: 'action4',
+            userId: '',
             tags: [],
             title: 'Nest your data as deep as you want!',
             description: msg4,
@@ -96,7 +102,7 @@ const DatastreamState = createSlice({
         },
         addAction: (state, action) => {
             const { newAction } = action.payload
-            newAction["uuid"] = uuidv4()
+            newAction["userId"] = getUser()
             state.actions.push(newAction)
         },
         updateAction: (state, action) => {
@@ -254,7 +260,7 @@ export const actionTitlesSelector = (state) => {
     }))
 
     actionsList.push({
-        label: "Datastream",
+        label: state.datashed.datastreams.filter((each) => each.uuid == state.datashed.currentFocus)[0].name,
         value: '',
     })
 
@@ -265,9 +271,12 @@ export const actionSelector = (state, uuid) => {
     return state.datastream.actions.find((e) => e.uuid == uuid)
 }
 
+const {
+    addAction
+} = DatastreamState.actions
+
 export const {
     updateAction,
-    addAction,
     deleteAction,
     cycleState,
     updateParentState,
@@ -287,5 +296,23 @@ export const toggleAndCheckParent = (uuid) => (dispatch, getState) => {
     dispatch(cycleState({ uuid }));
     dispatch(updateAllParentStates(uuid));
 };
+
+export const allActionsSelector = (state) => {
+    return state.datastream.actions
+}
+
+export const addDatastreamAction = (newAction) => (dispatch, getState) => {
+    const state = getState()
+    const currentFocus = currentFocusSelector(state)
+    const uuid = uuidv4()
+
+    newAction["uuid"] = uuid
+
+    dispatch(addAction({
+        newAction
+    }))
+
+    dispatch(addActionToDatastream({datastreamUuid: currentFocus, actionUuid: uuid}))
+}
 
 export default DatastreamState.reducer;

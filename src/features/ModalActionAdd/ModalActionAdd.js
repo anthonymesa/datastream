@@ -4,6 +4,9 @@ import { actionTitlesSelector, addAction, ACTION_STATE } from '../Datastream/Dat
 import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from 'react'
 import { useDisclosure } from '@mantine/hooks'
+import { getUser } from '../../app/SessionManager/SessionManagerSlice';
+import { addActionToDatastream } from '../Datashed/DatashedSlice';
+import { addDatastreamAction } from '../Datastream/DatastreamSlice';
 
 const ParentIdSelector = () => {
 
@@ -107,14 +110,12 @@ const SubmitButton = () => {
   const dispatch = useDispatch()
 
   const handleOnClick = () => {
-    dispatch(addAction({
-      newAction: {
-        parentUuid: form.parentId,
-        title: form.title,
-        description: form.description,
-        tags: [],
-        state: form.state,
-      }
+    dispatch(addDatastreamAction({
+      parentUuid: form.parentId,
+      title: form.title,
+      description: form.description,
+      tags: [],
+      state: form.state,
     }))
     dispatch(closeModal({}))
     dispatch(clearForm({}))

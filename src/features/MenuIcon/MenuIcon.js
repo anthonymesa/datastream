@@ -2,9 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Transition, ActionIcon, Menu, Divider, Button } from '@mantine/core';
 import { useWindowScroll } from '@mantine/hooks';
 import { FiMenu } from 'react-icons/fi';
-import ModalActionEditSlice, { setParentId, openModal, openedSelector } from '../ModalActionAdd/ModalActionAddSlice';
+import ModalActionEditSlice, { setParentId, openModal as openNewActionModal, openedSelector } from '../ModalActionAdd/ModalActionAddSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import debounce from 'lodash/debounce';
+import { openModalLoginCaution } from '../ModalLoginCaution/ModalLoginCautionSlice';
+import Cookies from 'js-cookie';
+import { logOut } from '../../app/SessionManager/SessionManagerSlice';
+import { useNavigate } from 'react-router-dom';
+import { DatastreamCountSelector, DatashedEmpty, addDatastream } from '../Datashed/DatashedSlice';
+import { openModal as openDatastreamAddModal } from '../ModalDatastreamAdd/ModalDatastreamAddSlice';
 
 function MenuIcon() {
   const [isScrolling, setIsScrolling] = useState(false);
@@ -14,6 +20,8 @@ function MenuIcon() {
   const editModalOpened = useSelector(store => store.ui.modals.actionEdit.opened);
   const [scroll, scrollTo] = useWindowScroll();
   const prevScroll = useRef(scroll);
+  const navigate = useNavigate();
+  const datashedEmpty = useSelector(DatashedEmpty)
 
   // When scroll starts
   useEffect(() => {
@@ -39,8 +47,16 @@ function MenuIcon() {
 
   const handleNewActionClick = () => {
     dispatch(setParentId({ value: '' }));
-    dispatch(openModal({}));
+    dispatch(openNewActionModal({}));
   };
+
+  const handleLogOutclick = () => {
+    dispatch(logOut())
+  }
+
+  const handleNewDatastreamClick = () => {
+    dispatch(openDatastreamAddModal())
+  }
 
   return (
     <Transition
@@ -68,11 +84,14 @@ function MenuIcon() {
               </ActionIcon>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Label>Create new datum...</Menu.Label>
-              <Menu.Item onClick={handleNewActionClick}>Action</Menu.Item>
+              <Menu.Label>Create new...</Menu.Label>
+              <Menu.Item onClick={handleNewDatastreamClick}>Datastream</Menu.Item>
+              <Menu.Item onClick={handleNewActionClick} disabled={datashedEmpty}>Action</Menu.Item>
               <Divider />
               <Menu.Label>Misc.</Menu.Label>
               <Menu.Item disabled>Settings</Menu.Item>
+              {/* <Menu.Item onClick={handleLogin}>Log In</Menu.Item> */}
+              <Menu.Item onClick={handleLogOutclick}>Log out</Menu.Item>
             </Menu.Dropdown>
           </Menu>
         </div>
