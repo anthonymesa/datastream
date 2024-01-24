@@ -6,6 +6,7 @@ import { allDatastreamsSelector, setCurrent, setDatastreams } from "./DatashedSl
 import MenuIcon from "../MenuIcon/MenuIcon";
 import { useEffect } from "react";
 import BackendConnector from "../../app/BackendConnector";
+import { setActions } from "../Datastream/DatastreamSlice";
 
 export default function Datashed() {
     const datastreams = useSelector(allDatastreamsSelector)
@@ -15,6 +16,9 @@ export default function Datashed() {
     useEffect(() => {
         backend.getDatastreams((data) => {
             dispatch(setDatastreams({datastreams: data}))
+        })
+        backend.getActions((data) => {
+            dispatch(setActions({actions: data }))
         })
     }, [])
 

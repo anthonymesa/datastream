@@ -7,10 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import debounce from 'lodash/debounce';
 import { openModalLoginCaution } from '../ModalLoginCaution/ModalLoginCautionSlice';
 import Cookies from 'js-cookie';
-import { logOut } from '../../app/SessionManager/SessionManagerSlice';
+import { logOut, setLoggedIn } from '../../app/SessionManager/SessionManagerSlice';
 import { useNavigate } from 'react-router-dom';
 import { DatastreamCountSelector, DatashedEmpty, addDatastream } from '../Datashed/DatashedSlice';
 import { openModal as openDatastreamAddModal } from '../ModalDatastreamAdd/ModalDatastreamAddSlice';
+import BackendConnector from '../../app/BackendConnector';
 
 function MenuIcon() {
   const [isScrolling, setIsScrolling] = useState(false);
@@ -22,6 +23,7 @@ function MenuIcon() {
   const prevScroll = useRef(scroll);
   const navigate = useNavigate();
   const datashedEmpty = useSelector(DatashedEmpty)
+  const connector = BackendConnector()
 
   // When scroll starts
   useEffect(() => {
@@ -51,7 +53,9 @@ function MenuIcon() {
   };
 
   const handleLogOutclick = () => {
-    dispatch(logOut())
+    connector.logOut(() => {
+      dispatch(setLoggedIn({value: false}))
+    })
   }
 
   const handleNewDatastreamClick = () => {

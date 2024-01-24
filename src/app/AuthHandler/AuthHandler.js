@@ -10,19 +10,19 @@ const AuthHandler = () => {
   const loggedIn = useSelector(LoggedInSelector)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    const token = query.get('sub');
+  // useEffect(() => {
+  //   const query = new URLSearchParams(location.search);
+  //   const token = query.get('sub');
     
-    if (token) {
-      dispatch(logIn(token))
-    }
-  }, [location]);
+  //   if (token) {
+  //     dispatch(logIn(token))
+  //   }
+  // }, [location]);
 
   useEffect(() => {
-    if(loggedIn) {
+    // if(loggedIn) {
       navigate('/');
-    }
+    // }
   }, [ loggedIn ])
 
   return <Center h={"100vh"}><Loader /></Center>;

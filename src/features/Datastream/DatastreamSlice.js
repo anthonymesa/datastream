@@ -276,6 +276,7 @@ const {
 } = DatastreamState.actions
 
 export const {
+    setActions,
     updateAction,
     deleteAction,
     cycleState,
