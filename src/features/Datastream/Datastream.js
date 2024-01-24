@@ -156,11 +156,11 @@ const ActionList = forwardRef(({ parentUuid, datastreamUuid = ''}, ref) => {
     
     return (
         <Action>
-            <TopInsetShadow hide={(parentUuid == '').toString()}/>
+            <TopInsetShadow hide={parentUuid == '' ? true : undefined}/>
             <Accordion {...accordionProps}>
                 {childActions}
             </Accordion>
-            <BottomInsetShadow hide={(parentUuid == '').toString()}/>
+            <BottomInsetShadow hide={parentUuid == '' ? true : undefined}/>
         </Action>
     );
 })

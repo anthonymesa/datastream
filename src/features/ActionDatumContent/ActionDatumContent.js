@@ -18,7 +18,7 @@ const ActionDatumContent = ({ uuid }) => {
   
     const activeAction = useSelector(ActionActiveSelector);
     return (
-        <Container active={(activeAction === uuid).toString()}>
+        <Container active={activeAction === uuid ? true : undefined}>
             <ActionDescription uuid={uuid} />
             <ActionEditBar uuid={uuid} />
         </Container>
