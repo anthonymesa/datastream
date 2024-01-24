@@ -37,42 +37,42 @@ const msg4 =
 
 function getDefaultActions() {
     return [
-        {
-            uuid: 'action1',
-            parentUuid: '',
-            userId: '',
-            tags: [],
-            title: 'This is an action. Click to see more!',
-            description: msg1,
-            state: 'paused'
-        },
-        {
-            uuid: 'action2',
-            parentUuid: 'action1',
-            userId: '',
-            tags: [],
-            title: 'This is a sub action.',
-            description: msg2,
-            state: 'paused'
-        },
-        {
-            parentUuid: 'action1',
-            uuid: 'action3',
-            userId: '',
-            tags: [],
-            title: 'This is another sub action!',
-            description: msg3,
-            state: 'paused'
-        },
-        {
-            parentUuid: 'action3',
-            uuid: 'action4',
-            userId: '',
-            tags: [],
-            title: 'Nest your data as deep as you want!',
-            description: msg4,
-            state: 'paused'
-        },
+        // {
+        //     uuid: 'action1',
+        //     parentUuid: '',
+        //     userId: '',
+        //     tags: [],
+        //     title: 'This is an action. Click to see more!',
+        //     description: msg1,
+        //     state: 'paused'
+        // },
+        // {
+        //     uuid: 'action2',
+        //     parentUuid: 'action1',
+        //     userId: '',
+        //     tags: [],
+        //     title: 'This is a sub action.',
+        //     description: msg2,
+        //     state: 'paused'
+        // },
+        // {
+        //     parentUuid: 'action1',
+        //     uuid: 'action3',
+        //     userId: '',
+        //     tags: [],
+        //     title: 'This is another sub action!',
+        //     description: msg3,
+        //     state: 'paused'
+        // },
+        // {
+        //     parentUuid: 'action3',
+        //     uuid: 'action4',
+        //     userId: '',
+        //     tags: [],
+        //     title: 'Nest your data as deep as you want!',
+        //     description: msg4,
+        //     state: 'paused'
+        // },
     ];
 }
 
@@ -312,7 +312,9 @@ export const addDatastreamAction = (newAction) => (dispatch, getState) => {
         newAction
     }))
 
-    dispatch(addActionToDatastream({datastreamUuid: currentFocus, actionUuid: uuid}))
+    if(newAction.parentUuid == '') {
+        dispatch(addActionToDatastream({datastreamUuid: currentFocus, actionUuid: uuid}))
+    }
 }
 
 export default DatastreamState.reducer;

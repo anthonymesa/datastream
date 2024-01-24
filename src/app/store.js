@@ -10,10 +10,10 @@ import DatashedSlice from "../features/Datashed/DatashedSlice";
 import SessionManagerSlice from "./SessionManager/SessionManagerSlice";
 import ModalDatastreamAddSlice from "../features/ModalDatastreamAdd/ModalDatastreamAddSlice";
 
-const persistConfig = {
-  key: "datastream-store",
-  storage
-}
+// const persistConfig = {
+//   key: "datastream-store",
+//   storage
+// }
 
 const baseReducer = combineReducers({
   sessionManager: SessionManagerSlice,
@@ -29,14 +29,14 @@ const baseReducer = combineReducers({
   })
 })
 
-const persistedReducer = persistReducer(persistConfig, baseReducer)
+// const persistedReducer = persistReducer(persistConfig, baseReducer)
 
 const store = configureStore({
   // reducer: persistedReducer
   reducer: baseReducer
 })
 
-const persistor = persistStore(store)
+// const persistor = persistStore(store)
 
 export default store;
 // export { persistor }
